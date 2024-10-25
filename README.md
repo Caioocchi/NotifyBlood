@@ -12,4 +12,7 @@ NotifyBlood é uma aplicação web desenvolvida para facilitar a doação de san
   <li>
     Gerenciamento de tipos sanguíneos
   </li>
+  <li>
+    Chatbot para tirar dúvidas
+  </li>
 </ul>
