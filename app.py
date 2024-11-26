@@ -237,6 +237,7 @@ def send_message():
     user_message = request.json.get('message')
     ai_message = chat.send_message(user_message)
     try:
+        print("teste")
         return jsonify({'message': ai_message.text})
     except Exception as e:
         # Retorna erro caso algo dê errado
