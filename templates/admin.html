@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin.css">
+    <title>Admin</title>
+</head>
+<body>
+    
+    <section class="hero">
+
+    <section class="register">
+        <div class="container">
+            <h2>Admin</h2>
+            
+            <form action="/admin" method="POST">
+                <label for="A+">Nível do banco de sangue A+:</label>
+                <input type="number" id="A+" name="A+" min="0" max="100" required>
+
+                <label for="A-">Nível do banco de sangue A-:</label>
+                <input type="number" id="A-" name="A-" min="0" max="100" required>
+
+                <label for="B+">Nível do banco de sangue B+:</label>
+                <input type="number" id="B+" name="B+" min="0" max="100" required>
+
+                <label for="B-">Nível do banco de sangue B-:</label>
+                <input type="number" id="B-" name="B-" min="0" max="100" required>
+
+                <label for="AB+">Nível do banco de sangue AB+:</label>
+                <input type="number" id="AB+" name="AB+" min="0" max="100" required>
+
+                <label for="AB-">Nível do banco de sangue AB-:</label>
+                <input type="number" id="AB-" name="AB-" min="0" max="100" required>
+
+                <label for="O+">Nível do banco de sangue O+:</label>
+                <input type="number" id="O+" name="O+" min="0" max="100" required>
+
+                <label for="O-">Nível do banco de sangue O-:</label>
+                <input type="number" id="O-" name="O-" min="0" max="100" required>
+
+                <label for="local">Local</label>
+                <select id="local" name="local" required>
+                <option value="R. Dr. Joaquim Cortês, 45 - Centro, Vitória - ES">Av. Leitão da Silva, 1089 - Gurigica, Vitória - ES</option>
+                <option value="Av. Mal. Campos, 1579 - Nazareth, Vitória - ES">Av. Mal. Campos, 1579 - Nazareth, Vitória - ES</option>
+                <option value="Av. Mal. Campos, 1468 - Maruípe, Vitória - ES">Av. Mal. Campos, 1468 - Maruípe, Vitória - ES</option>
+                <option value="R. Dr. Joaquim Cortês, 45 - Centro, Vitória - ES">R. Dr. Joaquim Cortês, 45 - Centro, Vitória - ES</option>
+                </select>
+
+                <button type="submit" class="cta-button">Cadastrar</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <img src="/static/logo.png" alt="Logo do Projeto">
+            <p>&copy; 2023 Projeto de Doação de Sangue</p>
+        </div>
+    </footer>
+</body>
+</html>

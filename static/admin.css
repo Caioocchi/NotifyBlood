@@ -1,0 +1,109 @@
+/* Reset de estilos para limpar margens e preenchimentos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para a barra de navegação */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Estilos para a seção hero */
+.hero {
+    background-image: url('/static/background2.png'); /* Substitua 'sua-imagem-de-fundo.jpg' pelo caminho correto da sua imagem de fundo */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Define a altura da seção hero para ocupar a altura da janela de visualização */
+}
+
+/* Estilos para a seção de cadastro */
+.register {
+    background-color: #f9f9f900;
+    text-align: center;
+    padding: 80px 0;
+}
+
+.register .container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.register h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.register label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.register input,
+.register select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.register button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register button:hover {
+    background-color: #c00;
+}
+
+/* Estilos para o rodapé */
+footer {
+    bottom: 0; /* Alinha o rodapé na parte inferior */
+    width: 100%; /* Largura total */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+footer img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
