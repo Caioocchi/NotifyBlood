@@ -389,29 +389,33 @@ body {font-size:16px;}
                       messageInput.value = '';
           
                       try {
-                          // Envia a mensagem para o backend usando fetch
-                          const response = await fetch('/send_message', {
-                              method: 'POST',
-                              headers: {
-                                  'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({ message: userMessage }),
-                          });
-          
-                          // Obtém a resposta do backend
-                          const data = await response.json();
-          
-                          if (data.message) {
-                              // Exibe a mensagem da IA no chat
-                              addMessage(data.message, 'other');
-                          } else {
-                              // Exibe erro se não houver resposta
-                              addMessage('Erro ao obter resposta da IA.', 'other');
-                          }
-                      } catch (error) {
-                          // Exibe erro em caso de falha na requisição
-                          addMessage('Erro de conexão com o servidor.', 'other');
-                      }
+    // Envia a mensagem para o backend usando fetch
+    const response = await fetch('/send_message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+    });
+
+    // Obtém a resposta do backend
+    const data = await response.json();
+
+    if (data.redirect) {
+        // Redireciona para a URL especificada pelo backend
+        window.location.href = data.redirect;
+    } else if (data.message) {
+        // Exibe a mensagem da IA no chat
+        addMessage(data.message, 'other');
+    } else {
+        // Exibe erro se não houver resposta
+        addMessage('Erro ao obter resposta da IA.', 'other');
+    }
+} catch (error) {
+    // Exibe erro em caso de falha na requisição
+    addMessage('Erro de conexão com o servidor.', 'other');
+}
+
                   }
               });
           

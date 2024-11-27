@@ -6,8 +6,8 @@ import mysql.connector
 import google.generativeai as genai
 
 #----- Gemini -----
-genai.configure(api_key="AIzaSyAUWM_R9e7yRb9KI1_rgjghkHhGtuuFqZE")
-model = genai.GenerativeModel("gemini-1.5-pro-latest")
+genai.configure(api_key="AIzaSyBzr-8ES6ErKJySXloTtXio1U02crY3jAM")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 #----- Twilio - SMS/Whatsapp -----
 sid = "sua sid"
@@ -24,6 +24,10 @@ app.static_folder = 'static'
 
 #----- VARIÁVEIS E FUNÇÕES GLOBAIS -----
 logado = False
+
+chat = model.start_chat(history=[])
+chat.send_message("Você irá entrevistar um usuário com apenas perguntas de sim ou não, uma por vez, para saber se ele está apto para doar sangue. No fim, informe apenas APTO ou INAPTO. Aguarde o usuário digitar ok para começar.")
+
 
 #----- Conexão banco de dados -----
 connectBD = mysql.connector.connect(host='localhost', database='notifyblood_banco', user='root', password='')
@@ -73,12 +77,19 @@ def notificacao(tipo_sanguineo, local, sangue):
                 if cont >= len(usuarios):
                     break
                 
-#----- HOME -----
+#----- HOME C/ CHAT -----
 @app.route('/')
 def home():
     global logado
     logado = False
     return render_template('FrontEnd_chat.html')
+
+#----- HOME C/ CADASTRO -----
+@app.route('/home_cadastro')
+def home_cadastro():
+    global logado
+    logado = False
+    return render_template('FrontEnd.html')
 
 #----- CONTATOS -----
 @app.route('/contatos', methods=['GET', 'POST'])
@@ -229,16 +240,23 @@ def admin():
 
 #----- CHAT -----
 @app.route('/send_message', methods=['GET', 'POST'])
-def send_message():
-    chat = model.start_chat(history=[])
-    chat.send_message("Você irá entrevistar um usuário com apenas perguntas de sim ou não, uma por vez, para saber se ele está apto para doar sangue. No fim, informe apenas APTO ou INAPTO. Aguarde o usuário digitar ok para começar.")
-    
+def send_message():    
     # Obtém a mensagem do usuário enviada pelo frontend
     user_message = request.json.get('message')
-    ai_message = chat.send_message(user_message)
-    try:
-        print("teste")
-        return jsonify({'message': ai_message.text})
+    ai_message = chat.send_message(user_message).text
+    print(ai_message)
+    
+    try:    
+        if ai_message.strip().upper() == "INAPTO":
+            flash('Você não está apto para doar sangue.')
+            return jsonify({'redirect': '/'})
+        
+        if ai_message.strip().upper() == "APTO":
+            flash('VOCÊ ESTÁ APTO PARA SALVAR VIDAS! CLIQUE EM CADASTRO E REALIZE O SEU.')
+            return jsonify({'redirect': 'home_cadastro'})
+    
+        else:
+            return jsonify({'message': ai_message})
     except Exception as e:
         # Retorna erro caso algo dê errado
         return jsonify({'error': str(e)}), 500
