@@ -23,11 +23,10 @@ app.static_url_path = '/static'
 app.static_folder = 'static'
 
 #----- VARIÁVEIS E FUNÇÕES GLOBAIS -----
-logado = False
+#logado = False
 
 chat = model.start_chat(history=[])
-chat.send_message("Você irá entrevistar um usuário com apenas perguntas de sim ou não, uma por vez, para saber se ele está apto para doar sangue. No fim, informe apenas APTO ou INAPTO. Aguarde o usuário digitar ok para começar.")
-
+chat.send_message("Você irá entrevistar um usuário para um pré cadastro com apenas 5 perguntas de sim ou não, uma por vez, para saber se ele está apto para doar sangue. No fim, informe apenas APTO ou INAPTO. Aguarde o usuário digitar ok para começar.")
 
 #----- Conexão banco de dados -----
 connectBD = mysql.connector.connect(host='localhost', database='notifyblood_banco', user='root', password='')
@@ -80,15 +79,15 @@ def notificacao(tipo_sanguineo, local, sangue):
 #----- HOME C/ CHAT -----
 @app.route('/')
 def home():
-    global logado
-    logado = False
+    #global logado
+    #logado = False
     return render_template('FrontEnd_chat.html')
 
 #----- HOME C/ CADASTRO -----
 @app.route('/home_cadastro')
 def home_cadastro():
-    global logado
-    logado = False
+    # global logado
+    # logado = False
     return render_template('FrontEnd.html')
 
 #----- CONTATOS -----
@@ -155,11 +154,11 @@ def cadastro():
                 cont += 1
                 if str(user[2]) == email_cadastro:
                     flash("Email ja cadastrado")
-                    return redirect('/')
+                    return redirect('/home_cadastro')
                 
                 if str(user[3]) == telefone:
                     flash("Telefone ja cadastrado")
-                    return redirect('/')
+                    return redirect('/home_cadastro')
 
 #cadastro do usuario no banco de dados
         if connectBD.is_connected():
@@ -190,7 +189,7 @@ def cadastro():
             cursor.close()
             
         flash(f"Cadastro realizado com sucesso! Seja bem-vindo(a), {name}")    
-        return redirect('/')
+        return redirect('/home_cadastro')
 
 #----- ADMIN -----
 @app.route('/admin', methods=['GET', 'POST'])
@@ -237,6 +236,11 @@ def admin():
 
     flash("ATUALIZADO COM SUCESSO")
     return redirect('/')
+
+#----- TELA ADMIN -----
+@app.route('/tela_admin')
+def tela_admin():
+    return render_template('admin.html')
 
 #----- CHAT -----
 @app.route('/send_message', methods=['GET', 'POST'])
